@@ -9,22 +9,21 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $totalCategorias = Categoria::count();
+        $totalProductos = Producto::count();
+        $stockTotal = Producto::sum('stock');
+        $stockBajo = Producto::where('stock', '<', 5)->count();
+
         $categorias = Categoria::all();
         $productos = Producto::with('categoria')->get();
 
-        // Estadísticas
-        $totalCategorias = $categorias->count();
-        $totalProductos = $productos->count();
-        $stockTotal = $productos->sum('stock');
-        $stockBajo = $productos->where('stock', '<', 5)->count();
-
         return view('dashboard', compact(
-            'categorias',
-            'productos',
             'totalCategorias',
             'totalProductos',
             'stockTotal',
-            'stockBajo'
+            'stockBajo',
+            'categorias',
+            'productos'
         ));
     }
 }

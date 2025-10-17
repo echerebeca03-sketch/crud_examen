@@ -16,6 +16,7 @@ class Producto extends Model
     'imagen',
     'activo'
 ];
+// Esto te dice Una categoría tiene muchos productos.
 public function categoria()
 {
     return $this->belongsTo(Categoria::class);
